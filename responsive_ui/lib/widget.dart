@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_ui/courses_data.dart';
 import 'courses_data.dart';
 
@@ -11,7 +12,7 @@ class  Header extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Image(
-          width: 500,
+          width: 800,
           height: 300,
           image: AssetImage('assets/Course0.jpg',
           
@@ -21,7 +22,9 @@ class  Header extends StatelessWidget {
           'Our Courses',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 60,
+            fontSize: ResponsiveValue(context, defaultValue: 60.0,
+            valueWhen: [Condition.smallerThan(name: MOBILE, value: 40.0),
+            Condition.largerThan(name: TABLET, value: 80.0)]).value,
             fontWeight: FontWeight.bold,
             color: Colors.blueGrey[900],
           ),
@@ -41,7 +44,7 @@ class CourseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 500,
+      width: 400,
       child: Card(
         margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
         color: Colors.blueGrey[50],
@@ -99,10 +102,7 @@ class Subscribe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      color: Colors.blueGrey[50],
-      child: Column(
+    return Column(
         children: [
           Text('Wanna Learn More?',
           textAlign: TextAlign.center,
@@ -111,15 +111,23 @@ class Subscribe extends StatelessWidget {
             color: Colors.blue
           ),
           ),
-          ElevatedButton(onPressed: (){},
-           child: Row(children: [
-           Text('Subscribe'),
-           Icon(Icons.notifications_active)
-           ],
-           )
+          SizedBox(
+            width: 120,
+            child: ElevatedButton(onPressed: (){},
+              
+             child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              
+             Text('Subscribe'),
+             Icon(Icons.notifications_active)
+             ],
+             )
+            ),
           )
         ],
-      )
+    
+      
     );
   }
 }
